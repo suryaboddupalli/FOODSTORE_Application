@@ -1,0 +1,47 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.page{
+    background: rgba(228, 107, 9, 0.952) ;
+    height: 600px;
+    width: 1400px;
+    position: fixed;
+
+}
+#head{
+    padding-bottom: 30px;
+    text-align: center;
+
+}
+.Recipe{
+    background: rgba(255, 255, 255, 0.685);
+    width: 100px;
+    padding: 40px 150px 50px 100px;
+    border-radius: 10px;
+   
+}
+.text{
+    padding-left: 500px;
+    padding-top: 100px;
+}
+
+#labels{
+    font-size: 18px;
+    font-weight: normal;
+    
+}
+#txtbox{
+    padding: 5px;
+    border-radius: 5px;
+    border-color: white;
+}
+#button{
+    padding: 5px;
+    margin-top: 15px;
+    margin-left: 40px;
+}
+
+.errorMsg{
+    color: red;
+}
