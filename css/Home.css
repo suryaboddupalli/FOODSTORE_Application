@@ -1,0 +1,61 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.home{
+    background-image: url(C:\Users\surya.ravi\Desktop\Aspire\surya\frontend\src/home.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 600px;
+
+}
+
+
+.btns{
+  background: black;
+  height: 60PX;
+  padding: 10px;
+}
+
+
+#register{
+    float: right;
+    background: black;
+    color: green;
+    border: black;
+    font-size: 15px;
+    margin-right: 100px;
+    padding: 5px;
+
+}
+
+#register:hover{
+    background-color: white;
+}
+
+#login{
+    float: right;
+    margin-right: 20px;
+    background: black;
+    color: blue;
+    border: black;
+    font-size: 15px;
+    padding: 5px;
+    
+}
+#login:hover{
+    background-color: white;
+}
+
+#title{
+    color: ivory;
+
+}
+#greet{
+    text-align: center;
+    margin-top: 200px;
+    font-weight: 50%;
+    font-size: 50px;
+}
+

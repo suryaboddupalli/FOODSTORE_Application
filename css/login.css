@@ -1,0 +1,25 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.page{
+    background-image: url(C:\Users\surya.ravi\Desktop\Aspire\surya\frontend\src/home.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 600px;
+
+}
+.login{
+    padding-top: 150px;
+    padding-left: 100px;
+}
+.forms{
+    background: rgba(255, 255, 255, 0.637);
+    width: 100px;
+    padding: 50px 150px 50px 100px;
+    border-radius: 10px;
+    margin-left: 400px;
+   
+}
+

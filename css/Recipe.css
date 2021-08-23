@@ -1,0 +1,13 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.home{
+    background-color: rgb(233, 128, 31);
+    width: 1260px;
+    height: 800px;
+}
+.Recipedetails{
+    padding-left: 20%;
+    padding-top: 20px;
+}

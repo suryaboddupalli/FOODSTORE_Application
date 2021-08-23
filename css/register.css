@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.page{
+    background-image: url(C:\Users\surya.ravi\Desktop\Aspire\surya\frontend\src/home.jpg);
+    background-repeat: no-repeat;
+    height: 600px;
+    width: 1400px;
+    position: fixed;
+
+}
+#head{
+    padding-bottom: 30px;
+    text-align: center;
+
+}
+.Register{
+    background: rgba(255, 255, 255, 0.685);
+    width: 100px;
+    padding: 40px 150px 50px 100px;
+    border-radius: 10px;
+   
+}
+.text{
+    padding-left: 500px;
+    padding-top: 100px;
+}
+
+#labels{
+    font-size: 18px;
+    font-weight: normal;
+    
+}
+#txtbox{
+    padding: 5px;
+    border-radius: 5px;
+    border-color: white;
+}
+#button{
+    padding: 5px;
+    margin-top: 15px;
+    margin-left: 40px;
+}
+
+.errorMsg{
+    color: red;
+}

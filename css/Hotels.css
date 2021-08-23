@@ -1,0 +1,45 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.home{
+   background: rgb(231, 131, 38);
+    height: 600px;  
+
+}
+.Navbar{
+    background: black;
+    width: 1280px;
+    height: 60PX;
+    padding-bottom: 20px;
+    
+}
+#signout{
+    float: right;
+    background: rgba(0, 0, 0, 0.466);
+    color:white;
+    border: black;
+    font-size: 15px;
+    margin-right: 30px;
+    font-size: 18px;
+}
+
+#cart{
+    float: right;
+    background: black;
+    color: white;
+    border: black;
+    font-size: 15px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.search{
+    margin-left: 500px;
+    
+}
+.hoteldetails{
+    margin-top: 10px;
+    margin-left: 20px;
+    
+}
