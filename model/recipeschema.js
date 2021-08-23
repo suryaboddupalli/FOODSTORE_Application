@@ -7,7 +7,6 @@ const recipeSchema = new mongoose.Schema({
     Cost:{
         type:Number
     }
-
 })
 
 module.exports = mongoose.model('Recipe',recipeSchema)

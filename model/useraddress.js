@@ -19,7 +19,6 @@ const useraddressSchema = new mongoose.Schema({
     Phone :{
         type : Number
     }
-
 })
 
 module.exports = mongoose.model('Useraddress',useraddressSchema)
