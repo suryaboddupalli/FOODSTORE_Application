@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router()
 const userController = require("../controllers/user.controller")
+const middleware= require("../middleware")
 
-router.get("/", userController.users_details)
+router.get("/Profile",middleware, userController.Profile)
 
 router.post("/Register", userController.Register)
 

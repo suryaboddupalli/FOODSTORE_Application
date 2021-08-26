@@ -18,6 +18,7 @@ const hotelSchema = new mongoose.Schema({
     },
     Pincode :{
         type : Number,
-    }})
+    }
+})
 
 module.exports = mongoose.model('Hotel',hotelSchema)

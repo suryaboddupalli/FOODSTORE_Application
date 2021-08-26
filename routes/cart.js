@@ -6,5 +6,4 @@ router.get("/",cartController.cart_details);
 
 router.post("/addtocart",cartController.addcart);
 
-
 module.exports=router;
