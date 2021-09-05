@@ -1,23 +1,17 @@
 const mongoose = require('mongoose')
 
 const hotelSchema = new mongoose.Schema({
-    Id:{
-        type:Number
+    HotelName:{
+        type: String
     },
-    Name:{
-        type: String,
+    Locality :{
+        type: String
     },
-    Landmark :{
-        type: String,
+    HotelType :{
+        type : String
     },
-    City :{
-        type: String,
-    },
-    States :{
-        type: String,
-    },
-    Pincode :{
-        type : Number,
+    HotelImg :{
+        type : String
     }
 })
 

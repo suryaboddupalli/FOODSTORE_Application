@@ -5,6 +5,10 @@ const dotenv = require("dotenv").config();
 const PORT = process.env.PORT
 const url = process.env.MongoDB_URL
 const app =express();
+const userRouter = require("./routes/user")
+const hotelRouter = require("./routes/hotels")
+const recipeRouter = require("./routes/recipe")
+const cartRouter = require("./routes/cart")
 
 mongoose.connect(url,{useNewUrlParser:true}).then(()=>{
     console.log("connected")
@@ -12,16 +16,12 @@ mongoose.connect(url,{useNewUrlParser:true}).then(()=>{
 app.use(express.json())
 app.use(cors())
 
-const userRouter = require("./routes/user")
 app.use("/user",userRouter)
 
-const hotelRouter = require("./routes/hotels")
 app.use("/hotel",hotelRouter)
 
-const recipeRouter = require("./routes/recipe")
 app.use("/recipe",recipeRouter)
 
-const cartRouter = require("./routes/cart")
 app.use("/cart",cartRouter)
 
 app.listen(PORT,()=>{

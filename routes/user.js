@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router()
 const userController = require("../controllers/user.controller")
-const middleware= require("../middleware")
+const middleware= require("../Jwt_middleware")
 
 router.get("/Profile",middleware, userController.Profile)
 

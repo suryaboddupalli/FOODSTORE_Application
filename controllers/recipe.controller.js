@@ -14,7 +14,8 @@ const recipe_create = async(req,res)=>{
     try{
         const recipe = new Recipe({
             Name : req.body.Name,
-            Cost : req.body.Cost   
+            Cost : req.body.Cost , 
+            RecipeImg : req.file.originalname 
         })
         const recipedata = await recipe.save()
         res.json(recipedata)
@@ -27,7 +28,8 @@ const recipe_update = async(req,res)=>{
     try{
         const recipe = await User.findById(req.params.id)
         Name = req.body.Name,
-        Cost = req.body.Cost
+        Cost = req.body.Cost,
+        RecipeImg = req.file.originalname
         const data= await recipe.save()
         res.json(data)  
     }catch(error){

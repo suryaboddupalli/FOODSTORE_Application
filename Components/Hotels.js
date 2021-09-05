@@ -1,40 +1,57 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import "../css/Hotels.css"
-import {useHistory} from 'react-router-dom'
+import axios from "../services"
+import { useEffect, useState ,useContext} from 'react'
+import {store} from "../App"
+import { Redirect } from "react-router";
+import { useHistory } from "react-router-dom";
 
-function Hotels(){
+
+const Hotels= ()=>{
     const history = useHistory();
+    const [token,setToken] = useContext(store);
     const [data, setData]= useState([]);
+    
     useEffect(()=>{
-        axios.get("http://localhost:8000/hotel")
-        .then(res=>setData(res.data))
-    },[])
-
+        axios.get("/hotel",{
+            headers:{
+                'token': token
+            }
+        })
+        .then(res=>setData(res.data)).catch((error)=>console.log(error))
+    })
+    if(!token){
+        return <Redirect to='/login' />
+    }
 
     return(
-        <div className='home'>
-            <div className="Navbar">
-                <h1 id="title">FoodStore</h1>
-               <button id="signout" onClick={()=>{history.push('/login')}}>Sign out</button> 
-               <button id="cart" >cart</button>
-               <div className="search">
-                <input type="search" placeholder='SEARCH' />
-                <button >search</button>
-               </div>
-               
-            </div>
-            <div className='hoteldetails'>
-              {data.map(hotel=><div>
-                <li key={hotel.Id} style={{color:'blue'}}>{hotel.Name}</li>
-                <li >{hotel.Landmark}</li>
-                <li >{hotel.City}</li>
-                <li >{hotel.States}</li>
-                <li >{hotel.Pincode}</li>
-                <button onClick={()=>{history.push('/recipe')}}>open</button>   
-            </div>)}
-
-        </div>
+        <div className="home">
+            <nav className="navbar bg-dark fixed-top">
+                <div className="container-fluid">
+                   <div className="navbar-header">
+                        <a href="/hotels" className="navbar-brand text-light">FOODSTORE</a>
+                    </div>
+            
+                   <ul className="nav">
+                       <li ><a  className="nav-link text-light" href="/hotels">Home</a></li>
+                       <li ><a className="nav-link text-light"  href="/cart">Cart</a></li>
+                       <li ><button style={{background:"black" , color:"white"}} onClick={() => setToken(null)}>Signout</button></li>
+                    </ul>
+                </div>
+            </nav><br/><br/>
+            <div className="row">
+                <div className="col-12 ">
+                    <div className="card" >
+                        <div class="card-body">
+                        {data.map((hotel)=><div >
+                                <div key={hotel.id} ><img src={`/uploads/${hotel.HotelImg}`}  alt={hotel.HotelImg}/></div><br/>
+                                <h1 className="card title">{hotel.HotelName}</h1>
+                                <h6 class="card-subtitle " style={{  fontSize:"15px" }}>{hotel.Locality}</h6>
+                                <h6>{hotel.HotelType}</h6>
+                                <button id="button" onClick={()=>{history.push("/hotel/recipe")}}>Open</button><br/><br/><br/><br/>
+                            </div>)}
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </div>
        
 

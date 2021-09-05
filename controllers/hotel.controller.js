@@ -1,4 +1,3 @@
-
 const express = require('express')
 const Hotel = require('../model/hotelschema')
 
@@ -7,23 +6,23 @@ const hotels_details = async(req,res)=>{
         const hotels = await Hotel.find()
         res.json(hotels)
           
-      }catch(error){
-          res.send(error)
-      } 
+    }catch(error){
+        res.send(error)
+    } 
 }
 
 const hotel_create = async(req,res)=>{
     try{
         const hotel = new Hotel({
-            Id : req.body.Id,
-            Name : req.body.Name,
-            Landmark : req.body.Landmark,
-            City : req.body.City,
-            States : req.body.States,
-            Pincode : req.body.Pincode
+            HotelName : req.body.HotelName,
+            Locality : req.body.Locality,
+            HotelType : req.body.HotelType,
+            HotelImg : req.file.originalname
         })
         const hoteldata = await hotel.save()
         res.send(hoteldata)
+        .then(()=>res.json('new hotel is posted'))
+        .catch((error)=>res.json(error))
     }catch(error){
         res.send(error)  
     }
@@ -32,12 +31,10 @@ const hotel_create = async(req,res)=>{
 const hotels_update = async(req,res)=>{
     try{
         const hotel = Hotel.findById(req.params.id)
-         Id=req.body.Id,
-         Name = req.body.Name,
-         Landmark = req.body.Landmark,
-         City = req.body.City,
-         States = req.body.States,
-         Pincode = req.body.pincode
+        HotelName = req.body.HotelName,
+        Locality  = req.body.Locality,
+        HotelType = req.body.HotelType,
+        HotelImg = req.file.originalname
         const data= hotel.save()
         res.json(data) 
     }catch(error){

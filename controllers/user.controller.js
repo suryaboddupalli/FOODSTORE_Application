@@ -2,24 +2,25 @@
 const express = require('express')
 const User = require('../model/userschema')
 const jwt = require('jsonwebtoken')
+const dotenv = require("dotenv").config();
+const secret = process.env.JWT_SECRET
 
 
 const Register =async(req,res)=>{
     try{
         const error={};
         const { Firstname, Lastname, Email, Phone, Password } =req.body;
-        let exist = await User.findOne({Email :Email})
-            if(exist){
+        await User.findOne({Email :Email})
+        .then((data)=>{
+            if(data.Email === Email){
                 error.notentered ={
                     message : 'User Already Exist'
                 }
             }
-    
-        if(!Firstname || !Lastname || !Email || !Phone || !Password){
-            error.notentered={
-                message : "Please Enter Required Fields"
-            }
-        }
+        }).catch((error)=>{
+            res.send(error);
+        })
+
        const newuser = new User({
            Firstname,Lastname, Email, Phone, Password
        })
@@ -32,37 +33,45 @@ const Register =async(req,res)=>{
        }
 
     }catch(error){
-        res.send(error);
+        res.send();
     }
 }
 
 
+
 const Login = async(req,res)=>{
     try{
-        const error={}
+        
         const {Email ,Password} = req.body;
         let exist = await User.findOne({Email : Email,Password: Password})
-        if(!exist){
-            error.invalid={
-                message: "Invalid login Credentials"
-            }
-        }   
 
-
-        if(Object.keys(error).length){
-            res.json({error})
-        }
-        let payload = {
-            user:{
-                id : exist.id
+        if(exist.Role === admin){
+            let payload = {
+                user:{
+                    id : exist.id
+                }
             }
-        }
-        jwt.sign(payload,"jwtsecret",{expiresIn:360000},
-            (err,token) =>{
-              if (err) throw err;
-              return res.json({token})
-          }  
+            jwt.sign(payload,secret,{expiresIn:360000},
+                (err,token) =>{
+                  if (err) throw err;
+                  return res.json({token})
+                }  
             )
+
+        }else{
+            let payload = {
+                user:{
+                    id : exist.id
+                }
+            }
+            jwt.sign(payload,secret,{expiresIn:360000},
+                (err,token) =>{
+                  if (err) throw err;
+                  return res.json({token})
+                }  
+            )
+
+        }
           
     }catch(error){
         res.send(error)

@@ -6,6 +6,9 @@ const recipeSchema = new mongoose.Schema({
     },
     Cost:{
         type:Number
+    },
+    RecipeImg :{
+        type:String
     }
 })
 

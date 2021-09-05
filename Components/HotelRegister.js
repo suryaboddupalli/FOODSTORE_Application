@@ -1,74 +1,63 @@
-import axios from "axios";
-import React from "react"
+import axios from "../services";
+import React, { useState } from "react"
 
 
-class HotelRegister extends React.Component {
-    
-    constructor() {
-      super();
-      this.state={
-          Id:'',
-          Name:'',
-          Lankmark:'',
-          City :'',
-          States :'',
-          Pincode:''
-      }
+const HotelRegister = ()=>{
+    const [data, setData]=useState({
+        HotelName :'',
+        Locality : '',
+        HotelType :'',
+
+    })
+    const [ HotelImg, setHotelImg]=useState()
+
+    const changeHandler = (e)=>{
+        setData({...data,[e.target.name]:e.target.value})
     }
 
-    onchange=(event)=>{
-        this.setState({
-        [event.target.name]: event.target.value
+    const handleSubmit = e =>{
+        e.preventDefault();
+        const Hoteldata = new FormData();
+        Hoteldata.append("HotelName",data.HotelName)
+        Hoteldata.append("Locality",data.Locality)
+        Hoteldata.append("HotelType",data.HotelType)
+        Hoteldata.append("HotelImg",HotelImg)
+        console.log(Hoteldata)
 
-         })
-    }
-    handleSubmit= event  =>{
-        event.preventDefault()
-        const Hoteldata = {
-            Id: this.state.Id,
-            Name : this.state.Name,
-            Landmark : this.state.Landmark,
-            City: this.state.City,
-            States: this.state.States,
-            Pincode : this.state.Pincode
-           
+        axios.post("/hotel/addhotel",Hoteldata)
+        .then((res)=>{
+            console.log(res)
+
         }
-
-        axios({
-            url:'http://localhost:8000/hotel/addhotel',
-            method:'POST',
-            data : Hoteldata
-        })
-       
-    };
     
-    render() {
-        return(
-            <div className='page'>
-                <div className='text'> 
-                  
-                   <form className='Hotel' onSubmit={this.handleSubmit}>
-                      <h3 id="head">Hoteldata</h3>
-                        <label>Id</label>
-                        <input type="number" id="txtbox" placeholder="Id" name='Id' value={this.state.Id} onChange={this.onchange}/>
-                       <label id="labels">Name</label>
-                       <input type= " text" id='txtbox' placeholder='Hotel Name' name='Name' value = {this.state.Name} onChange={this.onchange}  /> 
-                       <label  id="labels">Lankmark</label>
-                       <input type= "text"  id='txtbox' placeholder='Lankmark' name='Landmark'value = {this.state.Landmark} onChange={this.onchange}   />
-                       <label  id="labels">City</label> 
-                       <input type= "text" id='txtbox' placeholder='City' name='City' value = {this.state.City} onChange={this.onchange}  /> 
-                       <label  id="labels">State</label>
-                       <input type= "text"  id='txtbox' placeholder='State' name='States'value = {this.state.States} onChange={this.onchange} />
-                       <label  id="labels">Pincode</label>
-                       <input type= "number"  id='txtbox' placeholder='Pincode' name='Pincode'value = {this.state.Pincode} onChange={this.onchange} />
-                      <button id='button'>Register</button>
-                
-                    </form>
-
-                </div>
-            
-          </div>
-        )
+        ).catch((err)=>{
+            console.log(err)
+        });
+    
     }
-}
+
+
+    return(
+        <div className="page">
+            <div className="text"> 
+               <form className="Hotel" enctype="multipart/form-data" onSubmit={handleSubmit}>
+                  <h3 id="head">Hoteldata</h3>
+                   <label id="labels">Name</label>
+                   <input type= " text" className="txtbox" placeholder="Hotel Name" name="HotelName"  onChange={changeHandler}  /> 
+                   <label  id="labels">Locality</label>
+                   <input type= "text"  className="txtbox" placeholder="address" name="Locality" onChange={changeHandler}   />
+                   <label  id="labels">HotelType</label>
+                   <input type= "text"  className="txtbox" placeholder="SouthIndian or  NorthIndian" name="HotelType" onChange={changeHandler}  />
+                   <label>Upload</label>
+                    <input type="file" className="txtbox"  name="HotelImg"  onChange={event=>{const file=event.target.files[0]; setHotelImg(file)}} />
+                  <button id="button">Register</button>
+                </form>
+            </div>
+      </div>
+    )
+    }
+
+
+
 export default HotelRegister
+

@@ -1,61 +1,56 @@
-import React from "react"
-import axios from "axios";
-import "../css/login.css";
+import React, {useState,useContext} from "react";
+import axios from "axios"
+import {store} from "../App"
+import { Redirect } from "react-router";
 
+const Login = () => {
+    const [token,setToken] = useContext(store)
+    const [data,setData] = useState({
+        Email:'',
+        Password:''
+    })
+    const[error,setError]=useState(null)
 
-class Login extends React.Component{
-
-    constructor(props){
-        super(props)
-        this.state={
-            email :"",password :""
-        }
+    const changeHandler = e =>{
+        setData({...data,[e.target.name]:e.target.value})
     }
+    const handleSubmit = e =>{
+        e.preventDefault();
+        axios.post('http://localhost:8000/user/login',data).then(
+            res => setToken(res.data.token)
+        ).then(res=>{
+            if(token){
+                res.data.Role?<Redirect to ='/hoteladd'/>:<Redirect to ="/hotel"/>
+            }
+        })
+        
+        .then(res=>{
+            if(!token){
+                throw Error('invalid credentials')
+            }
+           return res.json();
+        }).catch((error)=>{
+            setError(error.message)
+        })
+    }
+   
     
-    onchange=(event)=>{
-        this.setState({
-            [event.target.name] : event.target.value
-        })    
-    }
-    handleSubmit= event  =>{
-       event.preventDefault()
-       
-
-       const userdata = {
-           email : this.state.email,
-           password : this.state.password
-       }
-
-       axios({
-           url:'http://localhost:8000/user/login',
-           method:'post',
-           data : userdata
-       })
-       .then(()=>{
-        window.location.href = "/hotels"
-       }).catch(()=>{
-           console.log('error')
-       });
-
-   };
-
-    render(){
-        return(
-            <div className='page'>
-                <div className="login">
-                    <form className="forms" onSubmit = {this.handleSubmit} >
-                       <label id="labels">Email</label>
-                       <input type='email' id="txtbox" name='email' placeholder='example@gmail.com' value={this.state.email} onChange={this.onchange}/>
-                       <label id="labels">Password</label>
-                       <input type="password" id="txtbox" name='password' placeholder='Example123' value={this.state.password} onChange={this.onchange}/>
-                       <button id="button" >Login</button>
-                       <a href='./Register'>Register</a>
-                    </form>
-
-                </div>
-                
-            </div>
-        )
-    }
+    return (
+        <div>
+            <center>
+            
+            <form className='Register' onSubmit={handleSubmit}>
+            {error && <div className="error">{error}</div>}
+            <label  id="labels">Email</label> 
+            <input type= "email" className='txtbox' placeholder='Example@gmail.com' name='Email'  onChange={changeHandler} required />
+            <label  id="labels">Password</label>
+            <input type= "password"  className='txtbox' placeholder='ABCabc!@#$%^123' name='Password' onChange={changeHandler}  required/>
+            <button id='button' >Login</button>
+            <a href='./Register'>Register</a>
+            </form>
+            </center>
+        </div>
+    )
 }
+
 export default Login

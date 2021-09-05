@@ -6,9 +6,9 @@ const cart_details = async(req,res)=>{
         const Cart = await Cart.find()
         res.json(Cart)
           
-      }catch(error){
-          res.send(error)
-      } 
+    }catch(error){
+        res.send(error)
+    } 
 }
 
 const addcart = async(req,res)=>{
@@ -19,7 +19,8 @@ const addcart = async(req,res)=>{
         })
         const cartdata = await Cart.save()
         res.send(cartdata)
-    }catch(error){
+    }catch(error)
+    {
         res.send(error)  
     }
 }

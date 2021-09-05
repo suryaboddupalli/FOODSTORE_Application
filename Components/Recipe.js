@@ -1,47 +1,62 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom';
-import '../css/Recipe.css'
+import axios from "../services"
+import { useEffect, useState , useContext} from "react"
+import { store } from "../App";
+import {Redirect} from "react-router-dom"
 
 
 function Recipe(){
-    const history = useHistory();
-
+    const [token,setToken]= useContext(store);
     const [data, setData]= useState([]);
 
     useEffect(()=>{
-        axios.get("http://localhost:8000/recipe")
-        .then(res=>setData(res.data))
-    },[])
-
+        axios.get("/recipe",
+        {
+            headers:{
+                'token': token
+            }
+        })
+        .then(res=>setData(res.data)).catch((error)=>{
+            console.log(error)
+        })
+    })
+    if(!token){
+        return <Redirect to='/login' />
+    }
 
     return(
-        <div className='home'>
-              <div className="Navbar">
-                <h1 id="title">FoodStore</h1>
-               <button id="signout" onClick={()=>{history.push('/login')}}>Sign out</button> 
-               <button id="cart" >cart</button>
-               <div className="search">
-                <input type="search" placeholder='SEARCH' />
-                <button >search</button>
-               </div>
-               
-            </div>
+       <div className="home">
+            <div className="home">
+            <nav className="navbar bg-dark fixed-top">
+                <div className="container-fluid">
+                   <div className="navbar-header">
+                        <a href="/hotels" className="navbar-brand text-light">FOODSTORE</a>
+                    </div>
             
-
-            <div className='recipe'>
-               <div className='Recipedetails'>
-                 {data.map(recipe=><div>
-                 <li key={recipe.Id} style={{color:'blue'}}>{recipe.Name}</li>
-                 <li >{recipe.Cost}</li>
-                  <button>addcart</button>   
-                  </div>)}
-
+                   <ul className="nav">
+                       <li ><a  className="nav-link text-light" href="/hotels">Home</a></li> 
+                       <li ><a className="nav-link text-light"  href="/cart">Cart</a></li>   
+                       <li ><button style={{background:"black" , color:"white"}} onClick={() => setToken(null)}>Signout</button></li>
+                    </ul>
                 </div>
-           </div>
-
+            </nav><br/><br/>
+            <div className="row">
+                <div className="col-12 ">
+                    <div className="card" >
+                        <div class="card-body">
+                           {data.map(recipe=><div>
+                              <div key={recipe.Id} ><img src={`/uploads/${recipe.HotelImg}`}  alt={"recipe.HotelImg"}/></div>
+                              <h2>{recipe.Name}</h2>
+                              <p >{recipe.Cost}</p>
+                              <button id="button">Add Cart</button><br/><br/>  
+                            </div>)}
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </div>
-
+       </div>
+            
     )
 }
 export default Recipe
+
