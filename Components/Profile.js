@@ -8,8 +8,13 @@ const Profile = ()=>{
         api.users()
         .then((res)=>{
             setData(res.data)
-        }).catch((err) => {console.log(err)})
+        }).catch((err) => {
+            console.log(err)
+        })
     })
+    const logout = ()=>{
+        sessionStorage.clear()
+    }
     
     return (
         <div className='home'>
@@ -22,7 +27,7 @@ const Profile = ()=>{
                    <li ><a  className ='nav-link text-light' href='/hotel/add'>Add Hotels</a></li>
                    <li ><a className='nav-link text-light'  href='/recipe/add'>Add Recipe</a></li>
                    <li ><a className='nav-link text-light' href='/profile'>Users</a></li>
-                   <li ><a className='nav-link text-light' href='/'>Signout</a></li>
+                   <li ><a className='nav-link text-light' href='/login' onClick={logout}>Signout</a></li>
                 </ul>
             </div>
         </nav><br/><br/>

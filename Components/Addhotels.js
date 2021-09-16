@@ -2,7 +2,6 @@ import React from 'react'
 import api from '../services'
 import { useEffect, useState } from 'react'
 
-
 function AddHotel(){
     const [hotel, setHotel]=useState({
         HotelName :'',
@@ -18,18 +17,17 @@ function AddHotel(){
 
     const handleSubmit = e =>{
         e.preventDefault();
-        // const Hoteldata = {HotelName : hotel.HotelName ,Locality : hotel.Locality, HotelType : hotel.HotelType, HotelImg : HotelImg}
-        const Hoteldata = new FormData();
-        Hoteldata.append('HotelName',hotel.HotelName)
-        Hoteldata.append('Locality',hotel.Locality)
-        Hoteldata.append('HotelType',hotel.HotelType)
-        Hoteldata.append('HotelImg',HotelImg)
+        const hotelData = new FormData();
+        hotelData.append('HotelName',hotel.HotelName)
+        hotelData.append('Locality',hotel.Locality)
+        hotelData.append('HotelType',hotel.HotelType)
+        hotelData.append('HotelImg',HotelImg)
 
-        api.addhotel(Hoteldata)
+        api.addhotel(hotelData)
         .then((res)=>{
            setSuccess(res.data)
         } ).catch((err)=>{
-            err.json(err)
+            console.log(err)
         });
     }
     
@@ -41,8 +39,8 @@ function AddHotel(){
     return(
         <div className='home'>
             <div className='text'> 
-                <form className='Hotel' enctype='multipart/form-data' onSubmit={handleSubmit}>
-                   <h3 id='head' className="text-center">Hoteldata</h3>
+                <form className='Hotel' encType='multipart/form-data' onSubmit={handleSubmit}>
+                   <h3 id='head' className="text-center">HotelData</h3>
                    {success && <h4 className="text-success">{success}</h4>}
                    <label id='labels'>Name</label>
                    <input type= ' text' className='txtbox' placeholder='Hotel Name' name='HotelName'  onChange={changeHandler}  /> 
@@ -51,7 +49,7 @@ function AddHotel(){
                    <label  id='labels'>HotelType</label>
                    <input type= 'text'  className='txtbox' placeholder='SouthIndian or  NorthIndian' name='HotelType' onChange={changeHandler}  />
                    <label>Hotel Image</label>
-                    <input type='file' className='txtbox'  name='HotelImg'  onChange={event=>{const file=event.target.files[0]; setHotelImg(file)}} />
+                    <input type='file' className='txtbox'  name='HotelImg'  onChange={event=>{setHotelImg(event.target.files[0])}} />
                   <button id='button'>Register</button>
                 </form>
             </div>

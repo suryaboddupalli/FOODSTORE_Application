@@ -6,4 +6,4 @@ const App = ()=>{
       <Route path='/' component={index} />
     )
 }
-export default App
+export default App  

@@ -5,48 +5,55 @@ const axiosInstance = axios.create({
     baseURL:"http://localhost:8000"
 })
 
+const login = (data)=>
+axiosInstance({
+    method : 'POST',
+    url :'/user/login',
+    data : data
+})
+const register = (data)=>
+axiosInstance({
+    method : 'POST',
+    url :'/user/register',
+    data : data
+})
+const addhotel = (hoteldata)=>
+axiosInstance({
+    method : 'POST',
+    url :'/hotel/add',
+    data : hoteldata
+})
+const  hotels = (hoteldata)=>
+axiosInstance({
+    method : 'GET',
+    url :'/hotel',
+    data : hoteldata
+})
+const addrecipe = (recipedata)=>
+axiosInstance({
+    method : 'POST',
+    url :'/recipe/add',
+    data : recipedata
+})
+const recipe = (recipedata)=>
+axiosInstance({
+    method : 'GET',
+    url :'/recipe',
+    data : recipedata
+})
+const users = (userdetails)=>
+axiosInstance({
+    method : 'GET',
+    url :'/user/userdetails',
+    data : userdetails
+})
+const practice = (data)=>{
+    axiosInstance({
+        method : 'POST',
+        url : '/practice/post',
+        data : data
+    })
+}  
 export default {
-    login : (data)=>
-    axiosInstance({
-        method : 'POST',
-        url :'/user/login',
-        data : data
-    }),
-    register : (data)=>
-    axiosInstance({
-        method : 'POST',
-        url :'/user/Register',
-        data : data
-    }), 
-    addhotel : (hoteldata)=>
-    axiosInstance({
-        method : 'POST',
-        url :'/hotel/add',
-        data : hoteldata
-    }),
-    hotels : (hoteldata)=>
-    axiosInstance({
-        method : 'GET',
-        url :'/hotel',
-        data : hoteldata
-    }),
-    addrecipe : (recipedata)=>
-    axiosInstance({
-        method : 'POST',
-        url :'/recipe/add',
-        data : recipedata
-    }),
-    recipe : (recipedata)=>
-    axiosInstance({
-        method : 'GET',
-        url :'/recipe',
-        data : recipedata
-    }), 
-    users : (userdetails)=>
-    axiosInstance({
-        method : 'GET',
-        url :'/user/userdetails',
-        data : userdetails
-    }) 
-
+    login, register, addhotel, hotels, addrecipe, recipe, users, practice
 }

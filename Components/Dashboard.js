@@ -13,14 +13,14 @@ function Dashboard(){
                <div className='navbar-header'>
                     <a href='/' className='navbar-brand text-light'>FOODSTORE</a>
                 </div>
-               <ul className='nav'>
+                <ul className='nav'>
                    <li ><a  className = 'nav-link text-light' href='/'>Home</a></li>
                    <li ><a className ='nav-link text-light'  href='/Cart'>Cart</a></li>
-                   <li ><a className ='nav-link text-light' href='/login' onClick = {logout}>Sign Out</a></li>
+                   <li ><a className ='nav-link text-light' href='/login' onClick = {logout}>SignOut</a></li>
                 </ul>
             </div>
         </nav><br/><br/>
-        <Hotels />
+        <Hotels/>
     </div>   
     )
 }

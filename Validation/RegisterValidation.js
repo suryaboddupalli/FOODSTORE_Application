@@ -15,7 +15,7 @@ const RegisterValidation = (userdata)  =>{
     if(!(emailregex.test(userdata.Email))){
         userErrors.Email = 'Please enter the valid Email'
     }
-    if(userdata.Phone !== 10){
+    if(userdata.Phone < 10){
         userErrors.phone = 'Please enter valid Mobile NUmber'
     }
     if(userdata.Password < 8){

@@ -14,12 +14,12 @@ const Addrecipe = ()=>{
     }
     const handleSubmit = e =>{
         e.preventDefault();
-        const Recipedata = new FormData();
-        Recipedata.append('Name',recipe.Name)
-        Recipedata.append('Cost',recipe.Cost)
-        Recipedata.append('RecipeImg',RecipeImg)
+        const recipeData = new FormData();
+        recipeData.append('Name',recipe.Name)
+        recipeData.append('Cost',recipe.Cost)
+        recipeData.append('RecipeImg',RecipeImg)
 
-        api.addrecipe(Recipedata)
+        api.addrecipe(recipeData)
         .then((res)=>{
             setSuccess(res.data)
         } ).catch((err)=>{

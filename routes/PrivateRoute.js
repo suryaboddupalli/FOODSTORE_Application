@@ -1,10 +1,9 @@
 import React from 'react'
-import {Route, Redirect} from "react-router-dom"
+import {Route, Redirect} from 'react-router-dom'
 
-function PrivateRoute({ component : Component , ...rest}){
-    const token = JSON.stringify(sessionStorage.getItem('token'))
-    const admin = JSON.stringify(sessionStorage.getItem('admin'))
-    console.log(token)
+function PrivateRoute({ component : Component , ...rest}){ 
+    const token = (sessionStorage.getItem('token'))
+    const admin = (sessionStorage.getItem('admin'))
     return <Route {...rest} render={(props)=>{
         if(token && admin){
             return <Component {...props} />

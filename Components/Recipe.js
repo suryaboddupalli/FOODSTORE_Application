@@ -5,6 +5,10 @@ import { useEffect, useState} from 'react'
 function Hotel(){
     const [data, setData]= useState([]);
     
+    const logout =()=>{
+        sessionStorage.clear()
+    }
+
     useEffect(()=>{
         api.recipe()
         .then(res=>setData(res.data))
@@ -20,7 +24,7 @@ function Hotel(){
                    <ul className='nav'>
                        <li ><a  className = 'nav-link text-light' href='/hotels'>Home</a></li>
                        <li ><a className ='nav-link text-light'  href='/Cart'>Cart</a></li>
-                       <li ><button style={{background:'black',border:'black',marginTop:'9px',paddingLeft:'5px', color:'white'}} >Sign out</button></li>
+                       <li ><a className ='nav-link text-light' href='/login' onClick = {logout}>Signout</a></li>
                     </ul>
                 </div>
             </nav><br/><br/>
