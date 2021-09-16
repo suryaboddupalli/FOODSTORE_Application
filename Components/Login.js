@@ -1,54 +1,61 @@
-import React, {useState,useContext} from "react";
-import axios from "axios"
-import {store} from "../App"
-import { Redirect } from "react-router";
+import React, {useState} from 'react';
+
+import { useHistory } from 'react-router-dom';
+import '../css/Login.css'
+import api from '../services'
 
 const Login = () => {
-    const [token,setToken] = useContext(store)
+    const history = useHistory();
     const [data,setData] = useState({
         Email:'',
         Password:''
     })
-    const[error,setError]=useState(null)
-
+    const[ error ,setError] =useState(null)
     const changeHandler = e =>{
         setData({...data,[e.target.name]:e.target.value})
     }
     const handleSubmit = e =>{
         e.preventDefault();
-        axios.post('http://localhost:8000/user/login',data).then(
-            res => setToken(res.data.token)
-        ).then(res=>{
-            if(token){
-                res.data.Role?<Redirect to ='/hoteladd'/>:<Redirect to ="/hotel"/>
-            }
-        })
-        
-        .then(res=>{
-            if(!token){
-                throw Error('invalid credentials')
-            }
-           return res.json();
-        }).catch((error)=>{
-            setError(error.message)
+        api.login(data).then(
+            res =>{
+                if(res.data.Token){
+                    sessionStorage.setItem('token',res.data.Token)
+                    if(res.data.Admin === true){
+                        sessionStorage.setItem('admin',res.data.Admin)
+                        console.log(typeof res.data.Admin)
+                        history.push('/admin')
+                    }else
+                    history.push('/dashboard')
+                }
+            })
+        .catch((err)=>{  
+            console.log(err.response.data.error)
+            setError(err.response.data.error)
         })
     }
-   
     
     return (
-        <div>
-            <center>
-            
-            <form className='Register' onSubmit={handleSubmit}>
-            {error && <div className="error">{error}</div>}
-            <label  id="labels">Email</label> 
-            <input type= "email" className='txtbox' placeholder='Example@gmail.com' name='Email'  onChange={changeHandler} required />
-            <label  id="labels">Password</label>
-            <input type= "password"  className='txtbox' placeholder='ABCabc!@#$%^123' name='Password' onChange={changeHandler}  required/>
-            <button id='button' >Login</button>
-            <a href='./Register'>Register</a>
-            </form>
-            </center>
+        <div className='page'>
+        <div className='form-container mt-5 '>
+			<div className='bg-secondary p-3 text-white text-center '>
+                <h2>Login</h2>
+				{error && <div className='error text-danger'>{error}</div>}
+				<form onSubmit={handleSubmit}>
+					<div className='form-group'>
+						<label  className='labels'>Email</label> <br/>
+                        <input type= 'email'  placeholder='Example@gmail.com' name='Email'  onChange={changeHandler}  required  />
+                    </div>
+					<div className='form-group'>
+						<label  id='labels'>Password</label><br/>
+                        <input type= 'password'  placeholder='ABCabc!@#$%^123' name='Password' onChange={changeHandler} required/>
+                    </div><br/>
+					<div>
+						<button  className= 'btn btn-primary'>login</button>
+					</div><br/>
+					<a href='./Register' className='text-white' >Register</a>
+				</form>
+			</div>
+		</div>
         </div>
     )
 }

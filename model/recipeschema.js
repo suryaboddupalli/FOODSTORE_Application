@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
 const recipeSchema = new mongoose.Schema({
-    Name:{
-        type: String 
+    Name : {
+        type : String 
     },
-    Cost:{
-        type:Number
+    Cost : {
+        type : Number
     },
-    RecipeImg :{
-        type:String
+    RecipeImg : {
+        type : String
     }
 })
 

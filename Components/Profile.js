@@ -1,34 +1,40 @@
-import React,{useContext, useState,useEffect } from "react"
-import {store} from "../App"
-import { Redirect } from "react-router";
-import axios from "axios";
-
-
+import React,{ useState,useEffect } from 'react'
+import api from '../services';
 
 const Profile = ()=>{
-    const [token,setToken] = useContext(store);
+   
     const [data,setData] = useState(null);
     useEffect(() =>{
-        axios.get('http://localhost:8000/user/Profile',{
-            headers: {
-                'token' : token 
-            }
-        }).then(res => setData(res.data)).catch((err) => console.log(err))
+        api.users()
+        .then((res)=>{
+            setData(res.data)
+        }).catch((err) => {console.log(err)})
     })
-    if(!token){
-        return <Redirect to='/login' />
-    }
+    
     return (
-        <div>
-            {
-                data &&
-            <center>
-                    <h5 class="card-title">Welcome : {data.Firstname}</h5>
-                    <button class="btn btn-primary" onClick={() => setToken(null)}>Logout</button>
-                    
-            </center>
-        }
+        <div className='home'>
+        <nav className='navbar bg-dark fixed-top'>
+            <div className='container-fluid'>
+               <div className='navbar-header'>
+                    <a href='/' className='navbar-brand text-light'>FOODSTORE</a>
+                </div>
+               <ul className='nav'>
+                   <li ><a  className ='nav-link text-light' href='/hotel/add'>Add Hotels</a></li>
+                   <li ><a className='nav-link text-light'  href='/recipe/add'>Add Recipe</a></li>
+                   <li ><a className='nav-link text-light' href='/profile'>Users</a></li>
+                   <li ><a className='nav-link text-light' href='/'>Signout</a></li>
+                </ul>
+            </div>
+        </nav><br/><br/>
+        <div className="card">
+            {data && data.map(user=>
+            <div className="card-body" key={user._id}>
+              <h5 className="card-title">{user.Firstname} {user.Lastname} <br/></h5>
+              <h6 className="card-subtitle mb-2 text-muted">{user.Email}<br/>{user.Phone}</h6>
+            </div>)}
         </div>
+    </div>
+       
     )
 }
 
